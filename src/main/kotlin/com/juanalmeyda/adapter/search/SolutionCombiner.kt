@@ -7,10 +7,10 @@ class SolutionCombiner {
 
     fun combine(solutions : List<SolutionWithOffers>) : List<Combination> {
         return solutions
-                .filter { solution -> solution.offers.isNotEmpty() }
-                .map { solution -> Combination().apply  {
-                    outboundSolutionId = solution.solution?.solutionId
-                    offers = solution.offers }
+                .filter { it.offers.isNotEmpty() }
+                .map { Combination().apply  {
+                    outboundSolutionId = it.solution?.solutionId
+                    offers = it.offers }
                 }
     }
 }
