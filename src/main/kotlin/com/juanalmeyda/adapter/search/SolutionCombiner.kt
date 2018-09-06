@@ -9,7 +9,7 @@ class SolutionCombiner {
         return solutions
                 .filter { it.offers.isNotEmpty() }
                 .map { Combination().apply  {
-                    outboundSolutionId = it.solution?.solutionId
+                    outboundSolutionId = it.solution.solutionId
                     offers = it.offers }
                 }
     }
