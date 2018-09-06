@@ -12,7 +12,8 @@ class SearchService(private val apiClient: ApiClient, val solutionCombiner : Sol
 
     //override fun search(searchRequest: SearchRequest?): SearchResponse { -- null check
     override fun search(searchRequest: SearchRequest): SearchResponse {
-        return searchOneWay(apiClient.search(searchRequest.transformSearchRequest()), searchRequest.passengers)
+        val searchResponse = apiClient.search(searchRequest.transformSearchRequest())
+        return searchRequest.returnDate?.let { searchRoundtrip() } ?: searchOneWay(searchResponse, searchRequest.passengers)
     }
 
 }
@@ -22,7 +23,7 @@ fun SearchService.searchOneWay(cpSearchResponse: com.goeuro.comboios.client.mode
 
     // instead of setter
     return SearchResponse().apply {
-        currency =  "EUR"
+        currency =  CURRENCY
         combinations = solutionCombiner.combine(solutions)
     }
 }
@@ -31,4 +32,8 @@ fun getSolutionsWithOffers(trips: List<Trip>): List<SolutionWithOffers> {
     return trips
             .filter { trip -> trip.isSaleableOnline }
             .map { trip -> SolutionWithOffers(Solution(), listOf(Offer())) }
+}
+
+fun searchRoundtrip() : SearchResponse {
+    TODO("not implemented")
 }
