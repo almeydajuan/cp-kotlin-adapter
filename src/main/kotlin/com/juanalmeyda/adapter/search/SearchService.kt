@@ -10,7 +10,6 @@ class SearchService(private val apiClient: ApiClient, val solutionCombiner : Sol
         TODO("not implemented")
     }
 
-    //override fun search(searchRequest: SearchRequest?): SearchResponse { -- null check
     override fun search(searchRequest: SearchRequest): SearchResponse {
         val searchResponse = apiClient.search(searchRequest.transformToCurrentModel())
         return searchRequest.returnDate?.let { searchRoundtrip() } ?: searchOneWay(searchResponse, searchRequest.passengers)
