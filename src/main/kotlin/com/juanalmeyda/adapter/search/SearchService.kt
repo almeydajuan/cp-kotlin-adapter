@@ -12,7 +12,7 @@ class SearchService(private val apiClient: ApiClient, val solutionCombiner : Sol
 
     //override fun search(searchRequest: SearchRequest?): SearchResponse { -- null check
     override fun search(searchRequest: SearchRequest): SearchResponse {
-        val searchResponse = apiClient.search(searchRequest.transformSearchRequest())
+        val searchResponse = apiClient.search(searchRequest.transformToCurrentModel())
         return searchRequest.returnDate?.let { searchRoundtrip() } ?: searchOneWay(searchResponse, searchRequest.passengers)
     }
 
@@ -31,7 +31,10 @@ fun SearchService.searchOneWay(cpSearchResponse: com.goeuro.comboios.client.mode
 fun getSolutionsWithOffers(trips: List<Trip>): List<SolutionWithOffers> {
     return trips
             .filter { trip -> trip.isSaleableOnline }
-            .map { trip -> SolutionWithOffers(Solution(), listOf(Offer())) }
+            .map { trip -> SolutionWithOffers(
+                    solution = Solution(),
+                    offers = listOf(Offer())
+            ) }
 }
 
 fun searchRoundtrip() : SearchResponse {
