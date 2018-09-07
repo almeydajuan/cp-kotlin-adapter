@@ -1,7 +1,6 @@
 package com.juanalmeyda.adapter.search
 
 import com.goeuro.coverage.goeuroconnect.model.v03.Combination
-import org.springframework.util.CollectionUtils
 
 class SolutionCombiner {
 

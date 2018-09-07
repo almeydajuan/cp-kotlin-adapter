@@ -6,9 +6,8 @@ import com.goeuro.coverage.goeuroconnect.model.v03.SearchRequest
 const val CURRENCY = "EUR"
 
 // extend an external class
-fun SearchRequest.transformToCurrentModel(): com.goeuro.comboios.client.model.request.SearchRequest {
-    // cannot be changed
-    return com.goeuro.comboios.client.model.request.SearchRequest.builder()
+fun SearchRequest.transformToCurrentModel(): com.goeuro.comboios.client.model.request.SearchRequest =
+        com.goeuro.comboios.client.model.request.SearchRequest.builder()
             .departureStationCode(this.departureStationCode)
             .arrivalStationCode(this.arrivalStationCode)
             .travelDate(this.departureDate)
@@ -16,4 +15,3 @@ fun SearchRequest.transformToCurrentModel(): com.goeuro.comboios.client.model.re
             .searchType(1)
             .configID(1000)
             .build()
-}

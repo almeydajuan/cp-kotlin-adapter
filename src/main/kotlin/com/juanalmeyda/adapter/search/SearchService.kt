@@ -27,14 +27,15 @@ fun SearchService.searchOneWay(cpSearchResponse: com.goeuro.comboios.client.mode
     }
 }
 
-fun getSolutionsWithOffers(trips: List<Trip>): List<SolutionWithOffers> {
-    return trips
-            .filter { trip -> trip.isSaleableOnline }
-            .map { trip -> SolutionWithOffers(
-                    solution = Solution(),
-                    offers = listOf(Offer())
-            ) }
-}
+fun getSolutionsWithOffers(trips: List<Trip>): List<SolutionWithOffers> =
+        trips
+            .filter { it.isSaleableOnline }
+            .map {
+                SolutionWithOffers(
+                        solution = Solution(),
+                        offers = listOf(Offer())
+                )
+            }
 
 fun searchRoundtrip() : SearchResponse {
     TODO("not implemented")
